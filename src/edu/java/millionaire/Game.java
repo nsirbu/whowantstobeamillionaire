@@ -7,38 +7,52 @@ import edu.java.millionaire.question.Question;
  * @since 12.04.2021
  */
 public class Game {
-  int currentLevel = 1;
-  int currentScore = 0;
-  Question currentQuestion;
+
+  public static final int MAX_LEVELS = 3;
+
+  private int currentLevel = 1;
+  private int currentScore = 0;
+  private Question currentQuestion;
+
+  public int getCurrentLevel() {
+    return currentLevel;
+  }
+
+  public int getCurrentScore() {
+    return currentScore;
+  }
+
+  public Question getCurrentQuestion() {
+    return currentQuestion;
+  }
+
+  public void setCurrentQuestion(Question currentQuestion) {
+    this.currentQuestion = currentQuestion;
+  }
+
+  public void addToCurrentScore(int valueToAdd) {
+    currentScore += valueToAdd;
+  }
+
+  public void incrementLevel() {
+    currentLevel++;
+  }
 
   void printLevelInfo(Game game) {
     System.out.println("\nLevel: " + game.currentLevel);
-    System.out.println("Question: " + game.currentQuestion.text);
-    System.out.println(game.currentQuestion.answers[0].sequence + ": " + game.currentQuestion.answers[0].text);
-    System.out.println(game.currentQuestion.answers[1].sequence + ": " + game.currentQuestion.answers[1].text);
-    System.out.println(game.currentQuestion.answers[2].sequence + ": " + game.currentQuestion.answers[2].text);
-    System.out.println(game.currentQuestion.answers[3].sequence + ": " + game.currentQuestion.answers[3].text);
+    System.out.println("Question: " + game.currentQuestion.getText());
+    System.out.println(game.currentQuestion.getAnswers()[0].getSequence() + ": " + game.currentQuestion.getAnswers()[0].getText());
+    System.out.println(game.currentQuestion.getAnswers()[1].getSequence() + ": " + game.currentQuestion.getAnswers()[1].getText());
+    System.out.println(game.currentQuestion.getAnswers()[2].getSequence() + ": " + game.currentQuestion.getAnswers()[2].getText());
+    System.out.println(game.currentQuestion.getAnswers()[3].getSequence() + ": " + game.currentQuestion.getAnswers()[3].getText());
   }
 
   boolean hasAnsweredCorrectly(Question currentQuestion, char userAnswer) {
-    switch (userAnswer) {
-      case 'a':
-        return currentQuestion.answers[0].isCorrect;
-      case 'b':
-        return currentQuestion.answers[1].isCorrect;
-      case 'c':
-        return currentQuestion.answers[2].isCorrect;
-      case 'd':
-        return currentQuestion.answers[3].isCorrect;
-      default:
-        return false;
-    }
+    return currentQuestion.getCorrectAnswer().getSequence() == userAnswer;
   }
 
   void printUserAnswerValidationMessage(Game game, boolean answeredCorrectly) {
     if (answeredCorrectly) {
-      game.currentScore += game.currentQuestion.score;
-      game.currentLevel++;
       System.out.println("That's correct.");
       System.out.println("Your current score: " + game.currentScore);
     } else {
@@ -47,7 +61,7 @@ public class Game {
   }
 
   boolean hasReachedLastLevel(Game game) {
-    if (game.currentLevel > 3) {
+    if (game.currentLevel > MAX_LEVELS) {
       System.out.println("Congratulations! You won the game.");
       return true;
     }

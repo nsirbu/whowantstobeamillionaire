@@ -13,10 +13,16 @@ public class Main {
     boolean answeredCorrectly = false;
 
     do {
-      game.currentQuestion = QuestionProvider.getRandomQuestionForLevel(game.currentLevel);
+      game.setCurrentQuestion(QuestionProvider.getRandomQuestionForLevel(game.getCurrentLevel()));
       game.printLevelInfo(game);
       char userInput = UserAnswerProvider.getUserAnswer();
-      answeredCorrectly = game.hasAnsweredCorrectly(game.currentQuestion, userInput);
+      answeredCorrectly = game.hasAnsweredCorrectly(game.getCurrentQuestion(), userInput);
+
+      if (answeredCorrectly) {
+        game.addToCurrentScore(game.getCurrentQuestion().getScore());
+        game.incrementLevel();
+      }
+
       game.printUserAnswerValidationMessage(game, answeredCorrectly);
 
       if (game.hasReachedLastLevel(game)) {

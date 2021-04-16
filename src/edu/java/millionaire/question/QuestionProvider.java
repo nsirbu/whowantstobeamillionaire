@@ -8,234 +8,234 @@ import java.util.Random;
  */
 public class QuestionProvider {
 
-  static Question[] questionsForLevelOne = QuestionProvider.initializeQuestionsForLevelOne();
-  static Question[] questionsForLevelTwo = QuestionProvider.initializeQuestionsForLevelTwo();
-  static Question[] questionsForLevelThree = QuestionProvider.initializeQuestionsForLevelThree();
+  private static Question[] questionsForLevelOne = QuestionProvider.initializeQuestionsForLevelOne();
+  private static Question[] questionsForLevelTwo = QuestionProvider.initializeQuestionsForLevelTwo();
+  private static Question[] questionsForLevelThree = QuestionProvider.initializeQuestionsForLevelThree();
 
-  public static Question[] initializeQuestionsForLevelOne() {
+  private static Question[] initializeQuestionsForLevelOne() {
     Question q1 = new Question();
-    q1.text = "Prefixul „eco” vine de la un cuvânt grecesc care înseamnă:";
-    q1.level = 1;
-    q1.score = 100;
+    q1.setText("Prefixul „eco” vine de la un cuvânt grecesc care înseamnă:");
+    q1.setLevel(1);
+    q1.setScore(100);
 
     Answer q1a1 = new Answer();
-    q1a1.text = "stat";
-    q1a1.sequence = 'a';
+    q1a1.setText("stat");
+    q1a1.setSequence('a');
 
     Answer q1a2 = new Answer();
-    q1a2.text = "casă";
-    q1a2.sequence = 'b';
-    q1a2.isCorrect = true;
+    q1a2.setText("casă");
+    q1a2.setSequence('b');
+    q1a2.setCorrect(true);
 
     Answer q1a3 = new Answer();
-    q1a3.text = "soare";
-    q1a3.sequence = 'c';
+    q1a3.setText("soare");
+    q1a3.setSequence('c');
 
     Answer q1a4 = new Answer();
-    q1a4.text = "viață";
-    q1a4.sequence = 'd';
+    q1a4.setText("viață");
+    q1a4.setSequence('d');
 
-    q1.answers = new Answer[]{q1a1, q1a2, q1a3, q1a4};
+    q1.setAnswers(new Answer[]{q1a1, q1a2, q1a3, q1a4});
 
     Question q2 = new Question();
-    q2.text = "Pe drapelul cărei ţări scrie motto-ul „Ordine şi progres”?";
-    q2.level = 1;
-    q2.score = 100;
+    q2.setText("Pe drapelul cărei ţări scrie motto-ul „Ordine şi progres”?");
+    q2.setLevel(1);
+    q2.setScore(100);
 
     Answer answer1 = new Answer();
-    answer1.text = "Australia";
-    answer1.sequence = 'a';
+    answer1.setText("Australia");
+    answer1.setSequence('a');
 
     Answer answer2 = new Answer();
-    answer2.text = "Brazilia";
-    answer2.isCorrect = true;
-    answer2.sequence = 'b';
+    answer2.setText("Brazilia");
+    answer2.setCorrect(true);
+    answer2.setSequence('b');
 
     Answer answer3 = new Answer();
-    answer3.text = "Africa de Sud";
-    answer3.sequence = 'c';
+    answer3.setText("Africa de Sud");
+    answer3.setSequence('c');
 
     Answer answer4 = new Answer();
-    answer4.text = "Indonezia";
-    answer4.sequence = 'd';
+    answer4.setText("Indonezia");
+    answer4.setSequence('d');
 
-    q2.answers = new Answer[]{answer1, answer2, answer3, answer4};
+    q2.setAnswers(new Answer[]{answer1, answer2, answer3, answer4});
 
     Question q3 = new Question();
-    q3.text = "Care dintre următoarele variante denumeşte un bici alcătuit din mai multe curele împletite?";
-    q3.level = 1;
-    q3.score = 100;
+    q3.setText("Care dintre următoarele variante denumeşte un bici alcătuit din mai multe curele împletite?");
+    q3.setLevel(1);
+    q3.setScore(100);
 
     Answer answer11 = new Answer();
-    answer11.text = "gârbaci";
-    answer11.isCorrect = true;
-    answer11.sequence = 'a';
+    answer11.setText("gârbaci");
+    answer11.setCorrect(true);
+    answer11.setSequence('a');
 
     Answer answer22 = new Answer();
-    answer22.text = "gârliţă";
-    answer22.sequence = 'b';
+    answer22.setText("gârliţă");
+    answer22.setSequence('b');
 
     Answer answer33 = new Answer();
-    answer33.text = "gâză";
-    answer33.sequence = 'c';
+    answer33.setText("gâză");
+    answer33.setSequence('c');
 
     Answer answer44 = new Answer();
-    answer44.text = "gârniţă";
-    answer44.sequence = 'd';
+    answer44.setText("gârniţă");
+    answer44.setSequence('d');
 
-    q3.answers = new Answer[]{answer11, answer22, answer33, answer44};
+    q3.setAnswers(new Answer[]{answer11, answer22, answer33, answer44});
 
     return new Question[]{q1, q2, q3};
   }
 
-  public static Question[] initializeQuestionsForLevelTwo() {
+  private static Question[] initializeQuestionsForLevelTwo() {
     Question q1 = new Question();
-    q1.text = "Cu ce parte a unui computer este asociat brand-ul „Intel Inside”?";
-    q1.level = 2;
-    q1.score = 200;
+    q1.setText("Cu ce parte a unui computer este asociat brand-ul „Intel Inside”?");
+    q1.setLevel(2);
+    q1.setScore(200);
 
     Answer answerOne = new Answer();
-    answerOne.text = "BIOS";
-    answerOne.sequence = 'a';
+    answerOne.setText("BIOS");
+    answerOne.setSequence('a');
 
     Answer answerTwo = new Answer();
-    answerTwo.text = "RAM";
-    answerTwo.sequence = 'b';
+    answerTwo.setText("RAM");
+    answerTwo.setSequence('b');
 
     Answer answerThree = new Answer();
-    answerThree.text = "USB";
-    answerThree.sequence = 'c';
+    answerThree.setText("USB");
+    answerThree.setSequence('c');
 
     Answer answerFour = new Answer();
-    answerFour.text = "Procesor";
-    answerFour.isCorrect = true;
-    answerFour.sequence = 'd';
+    answerFour.setText("Procesor");
+    answerFour.setCorrect(true);
+    answerFour.setSequence('d');
 
-    q1.answers = new Answer[]{answerOne, answerTwo, answerThree, answerFour};
+    q1.setAnswers(new Answer[]{answerOne, answerTwo, answerThree, answerFour});
 
     Question q2 = new Question();
-    q2.text = "Care dintre următoarele soiuri de struguri este folosit pentru a produce un celebru vin roşu?";
-    q2.level = 2;
-    q2.score = 200;
+    q2.setText("Care dintre următoarele soiuri de struguri este folosit pentru a produce un celebru vin roşu?");
+    q2.setLevel(2);
+    q2.setScore(200);
 
     Answer answer1 = new Answer();
-    answer1.text = "Pinot Grigio";
-    answer1.sequence = 'a';
+    answer1.setText("Pinot Grigio");
+    answer1.setSequence('a');
 
     Answer answer2 = new Answer();
-    answer2.text = "Riesling";
-    answer2.sequence = 'b';
+    answer2.setText("Riesling");
+    answer2.setSequence('b');
 
     Answer answer3 = new Answer();
-    answer3.text = "Cabernet Sauvignon";
-    answer3.isCorrect = true;
-    answer3.sequence = 'c';
+    answer3.setText("Cabernet Sauvignon");
+    answer3.setCorrect(true);
+    answer3.setSequence('c');
 
     Answer answer4 = new Answer();
-    answer4.text = "Chardonnay";
-    answer4.sequence = 'd';
+    answer4.setText("Chardonnay");
+    answer4.setSequence('d');
 
-    q2.answers = new Answer[]{answer1, answer2, answer3, answer4};
+    q2.setAnswers(new Answer[]{answer1, answer2, answer3, answer4});
 
     Question q3 = new Question();
-    q3.text = "Cum se numeşte pretinsa ştiinţă de a ghici viitorul după conformaţia norilor?";
-    q3.level = 2;
-    q3.score = 200;
+    q3.setText("Cum se numeşte pretinsa ştiinţă de a ghici viitorul după conformaţia norilor?");
+    q3.setLevel(2);
+    q3.setScore(200);
 
     Answer answer11 = new Answer();
-    answer11.text = "giromanţie";
-    answer11.sequence = 'a';
+    answer11.setText("giromanţie");
+    answer11.setSequence('a');
 
     Answer answer22 = new Answer();
-    answer22.text = "acromanţie";
-    answer22.isCorrect = true;
-    answer22.sequence = 'b';
+    answer22.setText("acromanţie");
+    answer22.setCorrect(true);
+    answer22.setSequence('b');
 
     Answer answer33 = new Answer();
-    answer33.text = "meteoromanţie";
-    answer33.sequence = 'c';
+    answer33.setText("meteoromanţie");
+    answer33.setSequence('c');
 
     Answer answer44 = new Answer();
-    answer44.text = "nefelomanţie";
-    answer44.sequence = 'd';
+    answer44.setText("nefelomanţie");
+    answer44.setSequence('d');
 
-    q3.answers = new Answer[]{answer11, answer22, answer33, answer44};
+    q3.setAnswers(new Answer[]{answer11, answer22, answer33, answer44});
 
     return new Question[]{q1, q2, q3};
   }
 
-  public static Question[] initializeQuestionsForLevelThree() {
+  private static Question[] initializeQuestionsForLevelThree() {
     Question q1 = new Question();
-    q1.text = "Care dintre următoarele oraşe este capitala Arabiei Saudite?";
-    q1.level = 3;
-    q1.score = 300;
+    q1.setText("Care dintre următoarele oraşe este capitala Arabiei Saudite?");
+    q1.setLevel(3);
+    q1.setScore(300);
 
     Answer answerOne = new Answer();
-    answerOne.text = "Abu Dhabi";
-    answerOne.sequence = 'a';
+    answerOne.setText("Abu Dhabi");
+    answerOne.setSequence('a');
 
     Answer answerTwo = new Answer();
-    answerTwo.text = "Manama";
-    answerTwo.sequence = 'b';
+    answerTwo.setText("Manama");
+    answerTwo.setSequence('b');
 
     Answer answerThree = new Answer();
-    answerThree.text = "Doha";
-    answerThree.sequence = 'c';
+    answerThree.setText("Doha");
+    answerThree.setSequence('c');
 
     Answer answerFour = new Answer();
-    answerFour.text = "Riyadh";
-    answerFour.isCorrect = true;
-    answerFour.sequence = 'd';
+    answerFour.setText("Riyadh");
+    answerFour.setCorrect(true);
+    answerFour.setSequence('d');
 
-    q1.answers = new Answer[]{answerOne, answerTwo, answerThree, answerFour};
+    q1.setAnswers(new Answer[]{answerOne, answerTwo, answerThree, answerFour});
 
     Question q2 = new Question();
-    q2.text = "Care dintre următorii oameni de știință nu are un element chimic care să-i poarte numele?";
-    q2.level = 3;
-    q2.score = 300;
+    q2.setText("Care dintre următorii oameni de știință nu are un element chimic care să-i poarte numele?");
+    q2.setLevel(3);
+    q2.setScore(300);
 
     Answer answer1 = new Answer();
-    answer1.text = "Albert Einstein";
-    answer1.sequence = 'a';
+    answer1.setText("Albert Einstein");
+    answer1.setSequence('a');
 
     Answer answer2 = new Answer();
-    answer2.text = "Niels Bohr";
-    answer2.sequence = 'b';
+    answer2.setText("Niels Bohr");
+    answer2.setSequence('b');
 
     Answer answer3 = new Answer();
-    answer3.text = "Isaac Newton";
-    answer3.isCorrect = true;
-    answer3.sequence = 'c';
+    answer3.setText("Isaac Newton");
+    answer3.setCorrect(true);
+    answer3.setSequence('c');
 
     Answer answer4 = new Answer();
-    answer4.text = "Enrico Fermi";
-    answer4.sequence = 'd';
+    answer4.setText("Enrico Fermi");
+    answer4.setSequence('d');
 
-    q2.answers = new Answer[]{answer1, answer2, answer3, answer4};
+    q2.setAnswers(new Answer[]{answer1, answer2, answer3, answer4});
 
     Question q3 = new Question();
-    q3.text = "Ce insectă a scurtcircuitat unul dintre primele computere și a inspirat termenul de 'bug'?";
-    q3.level = 3;
-    q3.score = 300;
+    q3.setText("Ce insectă a scurtcircuitat unul dintre primele computere și a inspirat termenul de 'bug'?");
+    q3.setLevel(3);
+    q3.setScore(300);
 
     Answer answer11 = new Answer();
-    answer11.text = "Molie";
-    answer11.sequence = 'a';
-    answer11.isCorrect = true;
+    answer11.setText("Molie");
+    answer11.setSequence('a');
+    answer11.setCorrect(true);
 
     Answer answer22 = new Answer();
-    answer22.text = "Gândac de bucătărie";
-    answer22.sequence = 'b';
+    answer22.setText("Gândac de bucătărie");
+    answer22.setSequence('b');
 
     Answer answer33 = new Answer();
-    answer33.text = "Muscă";
-    answer33.sequence = 'c';
+    answer33.setText("Muscă");
+    answer33.setSequence('c');
 
     Answer answer44 = new Answer();
-    answer44.text = "Gândac japonez";
-    answer44.sequence = 'd';
+    answer44.setText("Gândac japonez");
+    answer44.setSequence('d');
 
-    q3.answers = new Answer[]{answer11, answer22, answer33, answer44};
+    q3.setAnswers(new Answer[]{answer11, answer22, answer33, answer44});
 
     return new Question[]{q1, q2, q3};
   }
@@ -253,7 +253,7 @@ public class QuestionProvider {
     }
   }
 
-  static Question getRandomQuestionFromArray(Question[] questions) {
+  private static Question getRandomQuestionFromArray(Question[] questions) {
     Random rd = new Random();
     int questionIndex = rd.nextInt(questions.length);
 

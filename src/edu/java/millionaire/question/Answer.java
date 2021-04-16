@@ -6,8 +6,35 @@ package edu.java.millionaire.question;
  */
 public class Answer {
 
-  public String text;
-  public boolean isCorrect;
-  public char sequence;
+  private String text;
+  private boolean isCorrect;
+  private char sequence;
 
+  public String getText() {
+    return text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
+  }
+
+  public boolean isCorrect() {
+    return isCorrect;
+  }
+
+  public void setCorrect(boolean correct) {
+    isCorrect = correct;
+  }
+
+  public char getSequence() {
+    return sequence;
+  }
+
+  public void setSequence(char sequence) {
+    if (sequence != 'a' && sequence != 'b' && sequence != 'c' && sequence != 'd') {
+      return;
+    }
+
+    this.sequence = sequence;
+  }
 }
