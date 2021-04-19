@@ -11,6 +11,16 @@ public class Question {
   private int score;
   private Answer[] answers;
 
+  public Question() {
+  }
+
+  public Question(String text, int level, int score, Answer[] answers) {
+    this.text = text;
+    this.level = level;
+    this.score = score;
+    setAnswers(answers);
+  }
+
   public String getText() {
     return text;
   }
@@ -46,6 +56,7 @@ public class Question {
   public void setAnswers(Answer[] answers) {
     if (answers.length == 4 && hasOnlyOneCorrectAnswer(answers)) {
       this.answers = answers;
+      initAnswerSequences();
     }
   }
 
@@ -74,5 +85,11 @@ public class Question {
     }
 
     return null;
+  }
+
+  private void initAnswerSequences() {
+    for (int index = 0; index < Answer.ANSWER_SEQUENCES.length; index++) {
+      answers[index].setSequence(Answer.ANSWER_SEQUENCES[index]);
+    }
   }
 }
