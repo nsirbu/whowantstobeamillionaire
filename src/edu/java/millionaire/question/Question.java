@@ -1,5 +1,7 @@
 package edu.java.millionaire.question;
 
+import java.util.ArrayList;
+
 /**
  * @author nsirbu
  * @since 07.04.2021
@@ -85,6 +87,17 @@ public class Question {
     }
 
     return null;
+  }
+
+  public ArrayList<Answer> getWrongAnswers() {
+    ArrayList<Answer> wrongAnswers = new ArrayList<>();
+    for (Answer answer : answers) {
+      if (!answer.isCorrect()) {
+        wrongAnswers.add(answer);
+      }
+    }
+
+    return wrongAnswers;
   }
 
   private void initAnswerSequences() {
