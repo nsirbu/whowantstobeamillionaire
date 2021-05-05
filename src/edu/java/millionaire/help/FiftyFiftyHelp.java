@@ -6,21 +6,25 @@ import edu.java.millionaire.question.Question;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 /**
  * @author nsirbu
  * @since 30.04.2021
  */
-public class FiftyFifty extends HelpOption {
+public class FiftyFiftyHelp extends HelpOption {
+
+  public FiftyFiftyHelp() {
+    index = 3;
+  }
 
   @Override
   public ArrayList<AnswerHelp> getAnswers(Question question) {
+    setUsed(true);
+
     Answer correctAnswer = question.getCorrectAnswer();
     ArrayList<Answer> wrongAnswers = question.getWrongAnswers();
 
-    Random rd = new Random();
-    int randomIndex = rd.nextInt(wrongAnswers.size());
+    int randomIndex = randomizer.nextInt(wrongAnswers.size());
     Answer wrongAnswer = wrongAnswers.get(randomIndex);
 
     ArrayList<AnswerHelp> result = new ArrayList<>();

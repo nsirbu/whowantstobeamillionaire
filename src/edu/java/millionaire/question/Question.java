@@ -14,12 +14,13 @@ public class Question {
   private Answer[] answers;
 
   public Question() {
+    // TODO: do we need it?
   }
 
   public Question(String text, int level, int score, Answer[] answers) {
     this.text = text;
-    this.level = level;
-    this.score = score;
+    this.level = level; // TODO: use the setter, make the setter final
+    this.score = score; // TODO: use the setter, make the setter final
     setAnswers(answers);
   }
 
@@ -101,8 +102,8 @@ public class Question {
   }
 
   private void initAnswerSequences() {
-    for (int index = 0; index < Answer.ANSWER_SEQUENCES.length; index++) {
-      answers[index].setSequence(Answer.ANSWER_SEQUENCES[index]);
+    for (int index = 0; index < Answer.ANSWER_SEQUENCES.size(); index++) {
+      answers[index].setSequence(Answer.ANSWER_SEQUENCES.get(index));
     }
   }
 }

@@ -6,8 +6,8 @@ package edu.java.millionaire.question;
  */
 public class AnswerHelp {
 
-  private Answer answer;
-  private double probability;
+  private final Answer answer;
+  private final double probability;
 
   public AnswerHelp(Answer answer, double probability) {
     this.answer = answer;

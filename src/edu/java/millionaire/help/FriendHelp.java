@@ -11,8 +11,14 @@ import java.util.ArrayList;
  */
 public class FriendHelp extends HelpOption {
 
+  public FriendHelp() {
+    index = '2';
+  }
+
   @Override
   public ArrayList<AnswerHelp> getAnswers(Question question) {
+    setUsed(true);
+
     ArrayList<AnswerHelp> helpAnswers = new ArrayList<>();
     helpAnswers.add(new AnswerHelp(question.getCorrectAnswer(), 100));
     return helpAnswers;

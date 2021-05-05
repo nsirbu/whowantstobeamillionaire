@@ -4,6 +4,7 @@ import edu.java.millionaire.question.AnswerHelp;
 import edu.java.millionaire.question.Question;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author nsirbu
@@ -12,9 +13,19 @@ import java.util.ArrayList;
 public abstract class HelpOption {
 
   protected boolean isUsed;
+  protected char index;
+  protected Random randomizer;
+
+  protected HelpOption() {
+    randomizer = new Random();
+  }
 
   public boolean isUsed() {
     return isUsed;
+  }
+
+  public char getIndex() {
+    return index;
   }
 
   public void setUsed(boolean used) {

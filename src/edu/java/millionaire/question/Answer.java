@@ -1,18 +1,22 @@
 package edu.java.millionaire.question;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * @author nsirbu
  * @since 07.04.2021
  */
 public class Answer {
 
-  public static final char[] ANSWER_SEQUENCES = {'a', 'b', 'c', 'd'};
+  public static final ArrayList<Character> ANSWER_SEQUENCES = new ArrayList<>(Arrays.asList('a', 'b', 'c', 'd'));
 
   private String text;
   private boolean isCorrect;
-  private char sequence;
+  private char sequence;  // TODO: use the setter, make the setter final
 
   public Answer() {
+    // TODO: do we need it?
   }
 
   public Answer(String text) {

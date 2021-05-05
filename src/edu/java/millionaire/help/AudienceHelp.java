@@ -7,7 +7,6 @@ import edu.java.millionaire.question.Question;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Random;
 
 /**
  * @author nsirbu
@@ -15,9 +14,14 @@ import java.util.Random;
  */
 public class AudienceHelp extends HelpOption {
 
+  public AudienceHelp() {
+    index = '1';
+  }
 
   @Override
   public ArrayList<AnswerHelp> getAnswers(Question question) {
+    setUsed(true);
+
     int[] probabilities = getFourRandomNumbers();
     Arrays.sort(probabilities);
     ArrayList<AnswerHelp> helpAnswers = createHelpAnswers(question, probabilities);
@@ -26,11 +30,10 @@ public class AudienceHelp extends HelpOption {
   }
 
   private int[] getFourRandomNumbers() {
-    Random rd = new Random();
-    int probOne = rd.nextInt(100);
-    int probTwo = rd.nextInt(100 - probOne);
-    int probThree = rd.nextInt(100 - probOne - probTwo);
-    int probFour = rd.nextInt(100 - probOne - probTwo - probThree);
+    int probOne = randomizer.nextInt(100);
+    int probTwo = randomizer.nextInt(100 - probOne);
+    int probThree = randomizer.nextInt(100 - probOne - probTwo);
+    int probFour = randomizer.nextInt(100 - probOne - probTwo - probThree);
 
     return new int[]{probOne, probTwo, probThree, probFour};
   }

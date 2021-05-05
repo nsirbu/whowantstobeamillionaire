@@ -1,5 +1,6 @@
 package edu.java.millionaire;
 
+import edu.java.millionaire.question.Answer;
 import edu.java.millionaire.question.QuestionProvider;
 
 /**
@@ -14,18 +15,24 @@ public class Main {
 
     do {
       game.setCurrentQuestion(QuestionProvider.getRandomQuestionForLevel(game.getCurrentLevel()));
-      game.printLevelInfo(game);
+      game.printLevelInfo();
       char userInput = UserAnswerProvider.getUserAnswer();
-      answeredCorrectly = game.hasAnsweredCorrectly(game.getCurrentQuestion(), userInput);
+      game.invokeHelpOption(userInput);
 
+      // TODO: check how to ask the user again in case of a wrong input
+      while (!Answer.ANSWER_SEQUENCES.contains(userInput)) {
+        userInput = UserAnswerProvider.getUserAnswer();
+      }
+
+      answeredCorrectly = game.hasAnsweredCorrectly(userInput);
       if (answeredCorrectly) {
         game.addToCurrentScore(game.getCurrentQuestion().getScore());
         game.incrementLevel();
       }
 
-      game.printUserAnswerValidationMessage(game, answeredCorrectly);
+      game.printUserAnswerValidationMessage(answeredCorrectly);
 
-      if (game.hasReachedLastLevel(game)) {
+      if (game.hasReachedLastLevel()) {
         break;
       }
     } while (answeredCorrectly);
