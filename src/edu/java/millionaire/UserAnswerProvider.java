@@ -11,7 +11,8 @@ public class UserAnswerProvider {
   static Scanner sc = new Scanner(System.in);
 
   static char getUserAnswer() {
-    System.out.print("\nPlease choose an answer: ");
+    System.out.println("\nPlease choose an answer: ");
+    System.out.print("> ");
     return sc.nextLine().charAt(0);
   }
 }

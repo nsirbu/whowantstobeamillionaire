@@ -14,7 +14,7 @@ import java.util.Collections;
 public class FiftyFiftyHelp extends HelpOption {
 
   public FiftyFiftyHelp() {
-    index = 3;
+    index = '3';
   }
 
   @Override
@@ -30,6 +30,7 @@ public class FiftyFiftyHelp extends HelpOption {
     ArrayList<AnswerHelp> result = new ArrayList<>();
     result.add(new AnswerHelp(correctAnswer, 50));
     result.add(new AnswerHelp(wrongAnswer, 50));
+    //TODO: Don't shuffle, order them by sequence using Collections.sort(list, Comparator).
     Collections.shuffle(result);
     return result;
   }

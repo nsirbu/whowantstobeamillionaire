@@ -16,13 +16,7 @@ public class Main {
     do {
       game.setCurrentQuestion(QuestionProvider.getRandomQuestionForLevel(game.getCurrentLevel()));
       game.printLevelInfo();
-      char userInput = UserAnswerProvider.getUserAnswer();
-      game.invokeHelpOption(userInput);
-
-      // TODO: check how to ask the user again in case of a wrong input
-      while (!Answer.ANSWER_SEQUENCES.contains(userInput)) {
-        userInput = UserAnswerProvider.getUserAnswer();
-      }
+      char userInput = getUserInput(game);
 
       answeredCorrectly = game.hasAnsweredCorrectly(userInput);
       if (answeredCorrectly) {
@@ -36,5 +30,16 @@ public class Main {
         break;
       }
     } while (answeredCorrectly);
+  }
+
+  private static char getUserInput(Game game) {
+    char userInput = UserAnswerProvider.getUserAnswer();
+    userInput = game.invokeHelpOption(userInput);
+
+    while (!Answer.ANSWER_SEQUENCES.contains(userInput)) {
+      userInput = getUserInput(game);
+    }
+
+    return userInput;
   }
 }

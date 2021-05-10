@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 public class Game {
 
+  public static final String TAB = "   ";
+  public static final String DOUBLE_TAB = "      ";
   public static final int MAX_LEVELS = 3;
   public final ArrayList<Character> helpOptionIndices;
 
@@ -24,13 +26,11 @@ public class Game {
   private final AudienceHelp audienceHelp;
   private final FriendHelp friendHelp;
   private final FiftyFiftyHelp fiftyFiftyHelp;
-  private ArrayList<AnswerHelp> helpAnswers;
 
   public Game() {
     audienceHelp = new AudienceHelp();
     friendHelp = new FriendHelp();
     fiftyFiftyHelp = new FiftyFiftyHelp();
-    helpAnswers = new ArrayList<>();
     helpOptionIndices = initHelpOptionIndices();
   }
 
@@ -50,10 +50,6 @@ public class Game {
     this.currentQuestion = currentQuestion;
   }
 
-  public ArrayList<AnswerHelp> getHelpAnswers() {
-    return helpAnswers;
-  }
-
   public void addToCurrentScore(int valueToAdd) {
     currentScore += valueToAdd;
   }
@@ -64,30 +60,30 @@ public class Game {
 
   // TODO: extract print methods into a separate class
   void printLevelInfo() {
-    System.out.println("\nLevel: " + this.currentLevel);
+    System.out.println("\n<<< Level: " + this.currentLevel + " >>>");
     printQuestionInfo();
     printHelpOptions();
   }
 
   void printQuestionInfo() {
-    System.out.println("Question: " + this.currentQuestion.getText());
-    System.out.println(this.currentQuestion.getAnswers()[0].getSequence() + ": " + this.currentQuestion.getAnswers()[0].getText());
-    System.out.println(this.currentQuestion.getAnswers()[1].getSequence() + ": " + this.currentQuestion.getAnswers()[1].getText());
-    System.out.println(this.currentQuestion.getAnswers()[2].getSequence() + ": " + this.currentQuestion.getAnswers()[2].getText());
-    System.out.println(this.currentQuestion.getAnswers()[3].getSequence() + ": " + this.currentQuestion.getAnswers()[3].getText());
+    System.out.println("Question:");
+    System.out.println(TAB + this.currentQuestion.getText());
+    System.out.println(DOUBLE_TAB + this.currentQuestion.getAnswers()[0].getSequence() + ": " + this.currentQuestion.getAnswers()[0].getText());
+    System.out.println(DOUBLE_TAB + this.currentQuestion.getAnswers()[1].getSequence() + ": " + this.currentQuestion.getAnswers()[1].getText());
+    System.out.println(DOUBLE_TAB + this.currentQuestion.getAnswers()[2].getSequence() + ": " + this.currentQuestion.getAnswers()[2].getText());
+    System.out.println(DOUBLE_TAB + this.currentQuestion.getAnswers()[3].getSequence() + ": " + this.currentQuestion.getAnswers()[3].getText());
   }
 
   void printHelpOptions() {
     // TODO: print also whether it is used or not
-    System.out.println("\nAudience help: 1");
-    System.out.println("Friend help: 2");
-    System.out.println("FiftyFifty help: 3");
+    System.out.println("\nHelp Options: (1) - Ask Audience   (2) - Phone a Friend   (3) - Remove Two Incorrect Answers");
   }
 
   void printHelpAnswers(ArrayList<AnswerHelp> helpAnswers) {
-    System.out.println("Question: " + currentQuestion.getText());
+    System.out.println("Question:");
+    System.out.println(TAB + currentQuestion.getText());
     for (AnswerHelp answerHelp : helpAnswers) {
-      System.out.println(answerHelp.getProbability() + " -> " + answerHelp.getAnswer().getSequence() + ": " + answerHelp.getAnswer().getText());
+      System.out.println(DOUBLE_TAB + answerHelp.getProbability() + " -> " + answerHelp.getAnswer().getSequence() + ": " + answerHelp.getAnswer().getText());
     }
   }
 
@@ -121,23 +117,23 @@ public class Game {
     return indices;
   }
 
-  void invokeHelpOption(char userInput) {
+  char invokeHelpOption(char userInput) {
     if (helpOptionIndices.contains(userInput)) {
       if (audienceHelp.getIndex() == userInput) {
         if (!audienceHelp.isUsed()) {
-          helpAnswers = audienceHelp.getAnswers(getCurrentQuestion());
+          printHelpAnswers(audienceHelp.getAnswers(getCurrentQuestion()));
         } else {
           System.out.println("AudienceHelp has been already used!");
         }
       } else if (friendHelp.getIndex() == userInput) {
         if (!friendHelp.isUsed()) {
-          helpAnswers = friendHelp.getAnswers(getCurrentQuestion());
+          printHelpAnswers(friendHelp.getAnswers(getCurrentQuestion()));
         } else {
           System.out.println("FriendHelp has been already used!");
         }
       } else if (fiftyFiftyHelp.getIndex() == userInput) {
         if (!fiftyFiftyHelp.isUsed()) {
-          helpAnswers = fiftyFiftyHelp.getAnswers(getCurrentQuestion());
+          printHelpAnswers(fiftyFiftyHelp.getAnswers(getCurrentQuestion()));
         } else {
           System.out.println("FiftyFiftyHelp has been already used!");
         }
@@ -145,12 +141,11 @@ public class Game {
         System.out.println("Wrong input!");
       }
 
-      printHelpAnswers(helpAnswers);
       userInput = UserAnswerProvider.getUserAnswer();
-
       if (helpOptionIndices.contains(userInput)) {
-        invokeHelpOption(userInput);
+        return invokeHelpOption(userInput);
       }
     }
+    return userInput;
   }
 }

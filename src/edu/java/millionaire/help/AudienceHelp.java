@@ -43,6 +43,7 @@ public class AudienceHelp extends HelpOption {
     helpAnswers.add(new AnswerHelp(question.getCorrectAnswer(), probabilities[3]));
 
     ArrayList<Answer> wrongAnswers = question.getWrongAnswers();
+    // TODO: Shuffle here the other answers.
     helpAnswers.add(new AnswerHelp(wrongAnswers.get(0), probabilities[0]));
     helpAnswers.add(new AnswerHelp(wrongAnswers.get(1), probabilities[1]));
     helpAnswers.add(new AnswerHelp(wrongAnswers.get(2), probabilities[2]));
