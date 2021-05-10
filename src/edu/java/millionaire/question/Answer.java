@@ -13,11 +13,7 @@ public class Answer {
 
   private String text;
   private boolean isCorrect;
-  private char sequence;  // TODO: use the setter, make the setter final
-
-  public Answer() {
-    // TODO: do we need it?
-  }
+  private char sequence;
 
   public Answer(String text) {
     this.text = text;
@@ -30,13 +26,13 @@ public class Answer {
 
   public Answer(String text, char sequence) {
     this.text = text;
-    this.sequence = sequence;
+    setSequence(sequence);
   }
 
   public Answer(String text, boolean isCorrect, char sequence) {
     this.text = text;
     this.isCorrect = isCorrect;
-    this.sequence = sequence;
+    setSequence(sequence);
   }
 
   public String getText() {
@@ -59,9 +55,9 @@ public class Answer {
     return sequence;
   }
 
-  public void setSequence(char sequence) {
+  public final void setSequence(char sequence) {
     if (!containsSequence(sequence)) {
-      return;
+      throw new IllegalArgumentException(String.format("Got [%s]. Should be one of %s.", sequence, ANSWER_SEQUENCES));
     }
 
     this.sequence = sequence;

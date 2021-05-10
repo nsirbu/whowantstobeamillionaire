@@ -13,14 +13,10 @@ public class Question {
   private int score;
   private Answer[] answers;
 
-  public Question() {
-    // TODO: do we need it?
-  }
-
   public Question(String text, int level, int score, Answer[] answers) {
     this.text = text;
-    this.level = level; // TODO: use the setter, make the setter final
-    this.score = score; // TODO: use the setter, make the setter final
+    setLevel(level);
+    setScore(score);
     setAnswers(answers);
   }
 
@@ -37,9 +33,11 @@ public class Question {
   }
 
   public void setLevel(int level) {
-    if (level > 0) {
-      this.level = level;
+    if (level <= 0) {
+      throw new IllegalArgumentException("Game level must be higher than 0 (zero).");
     }
+
+    this.level = level;
   }
 
   public int getScore() {
@@ -47,9 +45,11 @@ public class Question {
   }
 
   public void setScore(int score) {
-    if (score > 0) {
-      this.score = score;
+    if (score < 0) {
+      throw new IllegalArgumentException("Game score must be higher than 0 (zero).");
     }
+
+    this.score = score;
   }
 
   public Answer[] getAnswers() {
@@ -57,10 +57,16 @@ public class Question {
   }
 
   public void setAnswers(Answer[] answers) {
-    if (answers.length == 4 && hasOnlyOneCorrectAnswer(answers)) {
-      this.answers = answers;
-      initAnswerSequences();
+    if (answers.length != 4) {
+      throw new IllegalArgumentException(String.format("Got [%s] answers. Expecting exactly 4 answers.", answers.length));
     }
+
+    if (!hasOnlyOneCorrectAnswer(answers)) {
+      throw new IllegalArgumentException("The provided list of answers contains none or several correct answers. Expecting exactly one correct answer.");
+    }
+
+    this.answers = answers;
+    initAnswerSequences();
   }
 
   /**
