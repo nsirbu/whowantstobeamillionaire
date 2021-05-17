@@ -7,7 +7,7 @@ import edu.java.millionaire.question.Question;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author nsirbu
@@ -15,22 +15,29 @@ import java.util.Comparator;
  */
 public class AudienceHelp extends HelpOption {
 
-  public AudienceHelp() {
-    index = '1';
+  private static AudienceHelp instance;
+
+  private AudienceHelp() {
+  }
+
+  public static AudienceHelp getInstance() {
+    if (instance == null) {
+      instance = new AudienceHelp();
+    }
+
+    return instance;
   }
 
   @Override
-  public ArrayList<AnswerHelp> getAnswers(Question question) {
-    setUsed(true);
-
-    ArrayList<Integer> probabilities = getFourRandomNumbers();
+  List<AnswerHelp> determineHelpAnswers(Question question) {
+    List<Integer> probabilities = getFourRandomNumbers();
     Collections.sort(probabilities);
-    ArrayList<AnswerHelp> helpAnswers = createHelpAnswers(question, probabilities);
-    sortHelpAnswers(helpAnswers); // TODO: rename the method
+    List<AnswerHelp> helpAnswers = createHelpAnswers(question, probabilities);
+    sortHelpAnswersBySequenceAsc(helpAnswers);
     return helpAnswers;
   }
 
-  private ArrayList<Integer> getFourRandomNumbers() {
+  private List<Integer> getFourRandomNumbers() {
     int probOne = randomizer.nextInt(100);
     int probTwo = randomizer.nextInt(100 - probOne);
     int probThree = randomizer.nextInt(100 - probOne - probTwo);
@@ -39,12 +46,12 @@ public class AudienceHelp extends HelpOption {
     return new ArrayList<>(Arrays.asList(probOne, probTwo, probThree, probFour));
   }
 
-  private ArrayList<AnswerHelp> createHelpAnswers(Question question, ArrayList<Integer> probabilities) {
-    ArrayList<AnswerHelp> helpAnswers = new ArrayList<>();
+  private List<AnswerHelp> createHelpAnswers(Question question, List<Integer> probabilities) {
+    List<AnswerHelp> helpAnswers = new ArrayList<>();
     helpAnswers.add(new AnswerHelp(question.getCorrectAnswer(), probabilities.get(3)));
     probabilities.remove(3);
 
-    ArrayList<Answer> wrongAnswers = question.getWrongAnswers();
+    List<Answer> wrongAnswers = question.getWrongAnswers();
     for (int index = 0; index < 3; index++) {
       int randomPosition = randomizer.nextInt(probabilities.size());
       helpAnswers.add(new AnswerHelp(wrongAnswers.get(index), probabilities.get(randomPosition)));
@@ -54,13 +61,7 @@ public class AudienceHelp extends HelpOption {
     return helpAnswers;
   }
 
-  void sortHelpAnswers(ArrayList<AnswerHelp> helpAnswers) {
-    // TODO: Replace with Comparable interface
-    Collections.sort(helpAnswers, new Comparator<AnswerHelp>() {
-      @Override
-      public int compare(AnswerHelp o1, AnswerHelp o2) {
-        return o1.getAnswer().getSequence() > o2.getAnswer().getSequence() ? 1 : -1;
-      }
-    });
+  void sortHelpAnswersBySequenceAsc(List<AnswerHelp> helpAnswers) {
+    Collections.sort(helpAnswers);
   }
 }

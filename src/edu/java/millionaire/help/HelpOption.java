@@ -3,7 +3,7 @@ package edu.java.millionaire.help;
 import edu.java.millionaire.question.AnswerHelp;
 import edu.java.millionaire.question.Question;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -12,8 +12,9 @@ import java.util.Random;
  */
 public abstract class HelpOption {
 
+  // TODO: check why static block don't work in subclasses
+
   protected boolean isUsed;
-  protected char index;
   protected Random randomizer;
 
   protected HelpOption() {
@@ -24,13 +25,14 @@ public abstract class HelpOption {
     return isUsed;
   }
 
-  public char getIndex() {
-    return index;
-  }
-
   public void setUsed(boolean used) {
     isUsed = used;
   }
 
-  public abstract ArrayList<AnswerHelp> getAnswers(Question question);
+  public List<AnswerHelp> getAnswers(Question question) {
+    setUsed(true);
+    return determineHelpAnswers(question);
+  }
+
+  abstract List<AnswerHelp> determineHelpAnswers(Question question);
 }

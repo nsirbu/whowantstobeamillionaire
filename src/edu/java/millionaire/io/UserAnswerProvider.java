@@ -1,4 +1,4 @@
-package edu.java.millionaire;
+package edu.java.millionaire.io;
 
 import java.util.Scanner;
 
@@ -10,7 +10,7 @@ public class UserAnswerProvider {
 
   static Scanner sc = new Scanner(System.in);
 
-  static char getUserAnswer() {
+  public static char getUserAnswer() {
     System.out.println("\nPlease choose an answer: ");
     System.out.print("> ");
     return sc.nextLine().charAt(0);

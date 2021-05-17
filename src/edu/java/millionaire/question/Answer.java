@@ -2,6 +2,7 @@ package edu.java.millionaire.question;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author nsirbu
@@ -9,7 +10,7 @@ import java.util.Arrays;
  */
 public class Answer {
 
-  public static final ArrayList<Character> ANSWER_SEQUENCES = new ArrayList<>(Arrays.asList('a', 'b', 'c', 'd'));
+  public static final List<Character> ANSWER_SEQUENCES = new ArrayList<>(Arrays.asList('a', 'b', 'c', 'd'));
 
   private String text;
   private boolean isCorrect;

@@ -1,6 +1,7 @@
 package edu.java.millionaire.question;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author nsirbu
@@ -96,8 +97,8 @@ public class Question {
     return null;
   }
 
-  public ArrayList<Answer> getWrongAnswers() {
-    ArrayList<Answer> wrongAnswers = new ArrayList<>();
+  public List<Answer> getWrongAnswers() {
+    List<Answer> wrongAnswers = new ArrayList<>();
     for (Answer answer : answers) {
       if (!answer.isCorrect()) {
         wrongAnswers.add(answer);

@@ -22,6 +22,9 @@ public class QuestionProvider {
 
   private static final Random rd = new Random();
 
+  private QuestionProvider() {
+  }
+
   private static Question[] initializeQuestionsForLevelOne() {
     Answer q1a1 = new Answer("stat");
     Answer q1a2 = new Answer("casă", true);

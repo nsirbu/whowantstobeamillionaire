@@ -6,6 +6,7 @@ import edu.java.millionaire.question.Question;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author nsirbu
@@ -13,25 +14,31 @@ import java.util.Collections;
  */
 public class FiftyFiftyHelp extends HelpOption {
 
-  public FiftyFiftyHelp() {
-    index = '3';
+  private static FiftyFiftyHelp instance;
+
+  private FiftyFiftyHelp() {
+  }
+
+  public static FiftyFiftyHelp getInstance() {
+    if (instance == null) {
+      instance = new FiftyFiftyHelp();
+    }
+
+    return instance;
   }
 
   @Override
-  public ArrayList<AnswerHelp> getAnswers(Question question) {
-    setUsed(true);
-
+  List<AnswerHelp> determineHelpAnswers(Question question) {
     Answer correctAnswer = question.getCorrectAnswer();
-    ArrayList<Answer> wrongAnswers = question.getWrongAnswers();
+    List<Answer> wrongAnswers = question.getWrongAnswers();
 
     int randomIndex = randomizer.nextInt(wrongAnswers.size());
     Answer wrongAnswer = wrongAnswers.get(randomIndex);
 
-    ArrayList<AnswerHelp> result = new ArrayList<>();
+    List<AnswerHelp> result = new ArrayList<>();
     result.add(new AnswerHelp(correctAnswer, 50));
     result.add(new AnswerHelp(wrongAnswer, 50));
-    //TODO: Don't shuffle, order them by sequence using Collections.sort(list, Comparator).
-    Collections.shuffle(result);
+    Collections.sort(result);
     return result;
   }
 }

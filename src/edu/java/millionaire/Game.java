@@ -1,12 +1,14 @@
 package edu.java.millionaire;
 
-import edu.java.millionaire.help.AudienceHelp;
-import edu.java.millionaire.help.FiftyFiftyHelp;
-import edu.java.millionaire.help.FriendHelp;
-import edu.java.millionaire.question.AnswerHelp;
+import edu.java.millionaire.help.HelpOption;
+import edu.java.millionaire.help.HelpOptionIndex;
+import edu.java.millionaire.help.HelpOptionProvider;
+import edu.java.millionaire.io.MessagePrinter;
+import edu.java.millionaire.io.UserAnswerProvider;
 import edu.java.millionaire.question.Question;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author nsirbu
@@ -14,23 +16,14 @@ import java.util.ArrayList;
  */
 public class Game {
 
-  public static final String TAB = "   ";
-  public static final String DOUBLE_TAB = "      ";
   public static final int MAX_LEVELS = 3;
-  public final ArrayList<Character> helpOptionIndices;
+  public final List<Character> helpOptionIndices;
 
   private int currentLevel = 1;
   private int currentScore = 0;
   private Question currentQuestion;
 
-  private final AudienceHelp audienceHelp;
-  private final FriendHelp friendHelp;
-  private final FiftyFiftyHelp fiftyFiftyHelp;
-
   public Game() {
-    audienceHelp = new AudienceHelp();
-    friendHelp = new FriendHelp();
-    fiftyFiftyHelp = new FiftyFiftyHelp();
     helpOptionIndices = initHelpOptionIndices();
   }
 
@@ -58,87 +51,29 @@ public class Game {
     currentLevel++;
   }
 
-  // TODO: extract print methods into a separate class
-  void printLevelInfo() {
-    System.out.println("\n<<< Level: " + this.currentLevel + " >>>");
-    printQuestionInfo();
-    printHelpOptions();
-  }
-
-  void printQuestionInfo() {
-    System.out.println("Question:");
-    System.out.println(TAB + this.currentQuestion.getText());
-    System.out.println(DOUBLE_TAB + this.currentQuestion.getAnswers()[0].getSequence() + ": " + this.currentQuestion.getAnswers()[0].getText());
-    System.out.println(DOUBLE_TAB + this.currentQuestion.getAnswers()[1].getSequence() + ": " + this.currentQuestion.getAnswers()[1].getText());
-    System.out.println(DOUBLE_TAB + this.currentQuestion.getAnswers()[2].getSequence() + ": " + this.currentQuestion.getAnswers()[2].getText());
-    System.out.println(DOUBLE_TAB + this.currentQuestion.getAnswers()[3].getSequence() + ": " + this.currentQuestion.getAnswers()[3].getText());
-  }
-
-  void printHelpOptions() {
-    // TODO: print also whether it is used or not
-    System.out.println("\nHelp Options: (1) - Ask Audience   (2) - Phone a Friend   (3) - Remove Two Incorrect Answers");
-  }
-
-  void printHelpAnswers(ArrayList<AnswerHelp> helpAnswers) {
-    System.out.println("Question:");
-    System.out.println(TAB + currentQuestion.getText());
-    for (AnswerHelp answerHelp : helpAnswers) {
-      System.out.println(DOUBLE_TAB + answerHelp.getProbability() + " -> " + answerHelp.getAnswer().getSequence() + ": " + answerHelp.getAnswer().getText());
-    }
-  }
-
   boolean hasAnsweredCorrectly(char userAnswer) {
     return currentQuestion.getCorrectAnswer().getSequence() == userAnswer;
   }
 
-  void printUserAnswerValidationMessage(boolean answeredCorrectly) {
-    if (answeredCorrectly) {
-      System.out.println("That's correct.");
-      System.out.println("Your current score: " + currentScore);
-    } else {
-      System.out.println("Wrong answer! Game over.");
-    }
-  }
-
   boolean hasReachedLastLevel() {
-    if (currentLevel > MAX_LEVELS) {
-      System.out.println("Congratulations! You won the game.");
-      return true;
-    }
-
-    return false;
+    return currentLevel > MAX_LEVELS;
   }
 
-  private ArrayList<Character> initHelpOptionIndices() {
-    ArrayList<Character> indices = new ArrayList<>();
-    indices.add(audienceHelp.getIndex());
-    indices.add(friendHelp.getIndex());
-    indices.add(fiftyFiftyHelp.getIndex());
+  private List<Character> initHelpOptionIndices() {
+    List<Character> indices = new ArrayList<>();
+    indices.add(HelpOptionIndex.AUDIENCE_HELP.getValue());
+    indices.add(HelpOptionIndex.FRIEND_HELP.getValue());
+    indices.add(HelpOptionIndex.FIFTY_FIFTY_HELP.getValue());
     return indices;
   }
 
   char invokeHelpOption(char userInput) {
     if (helpOptionIndices.contains(userInput)) {
-      if (audienceHelp.getIndex() == userInput) {
-        if (!audienceHelp.isUsed()) {
-          printHelpAnswers(audienceHelp.getAnswers(getCurrentQuestion()));
-        } else {
-          System.out.println("AudienceHelp has been already used!");
-        }
-      } else if (friendHelp.getIndex() == userInput) {
-        if (!friendHelp.isUsed()) {
-          printHelpAnswers(friendHelp.getAnswers(getCurrentQuestion()));
-        } else {
-          System.out.println("FriendHelp has been already used!");
-        }
-      } else if (fiftyFiftyHelp.getIndex() == userInput) {
-        if (!fiftyFiftyHelp.isUsed()) {
-          printHelpAnswers(fiftyFiftyHelp.getAnswers(getCurrentQuestion()));
-        } else {
-          System.out.println("FiftyFiftyHelp has been already used!");
-        }
+      HelpOption helpOption = HelpOptionProvider.getHelpOptionForIndex(userInput);
+      if (!helpOption.isUsed()) {
+        MessagePrinter.printHelpAnswers(currentQuestion.getText(), helpOption.getAnswers(getCurrentQuestion()));
       } else {
-        System.out.println("Wrong input!");
+        System.out.println(String.format("HelpOption[%s] has been already used!", helpOption.getClass().getSimpleName()));
       }
 
       userInput = UserAnswerProvider.getUserAnswer();

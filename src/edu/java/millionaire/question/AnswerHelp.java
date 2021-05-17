@@ -4,7 +4,7 @@ package edu.java.millionaire.question;
  * @author nsirbu
  * @since 30.04.2021
  */
-public class AnswerHelp {
+public class AnswerHelp implements Comparable<AnswerHelp> {
 
   private final Answer answer;
   private final double probability;
@@ -20,5 +20,10 @@ public class AnswerHelp {
 
   public double getProbability() {
     return probability;
+  }
+
+  @Override
+  public int compareTo(AnswerHelp o) {
+    return this.getAnswer().getSequence() > o.getAnswer().getSequence() ? 1 : -1;
   }
 }

@@ -4,6 +4,7 @@ import edu.java.millionaire.question.AnswerHelp;
 import edu.java.millionaire.question.Question;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author nsirbu
@@ -11,15 +12,22 @@ import java.util.ArrayList;
  */
 public class FriendHelp extends HelpOption {
 
-  public FriendHelp() {
-    index = '2';
+  private static FriendHelp instance;
+
+  private FriendHelp() {
+  }
+
+  public static FriendHelp getInstance() {
+    if (instance == null) {
+      instance = new FriendHelp();
+    }
+
+    return instance;
   }
 
   @Override
-  public ArrayList<AnswerHelp> getAnswers(Question question) {
-    setUsed(true);
-
-    ArrayList<AnswerHelp> helpAnswers = new ArrayList<>();
+  List<AnswerHelp> determineHelpAnswers(Question question) {
+    List<AnswerHelp> helpAnswers = new ArrayList<>();
     helpAnswers.add(new AnswerHelp(question.getCorrectAnswer(), 100));
     return helpAnswers;
   }

@@ -1,5 +1,7 @@
 package edu.java.millionaire;
 
+import edu.java.millionaire.io.MessagePrinter;
+import edu.java.millionaire.io.UserAnswerProvider;
 import edu.java.millionaire.question.Answer;
 import edu.java.millionaire.question.QuestionProvider;
 
@@ -15,7 +17,7 @@ public class Main {
 
     do {
       game.setCurrentQuestion(QuestionProvider.getRandomQuestionForLevel(game.getCurrentLevel()));
-      game.printLevelInfo();
+      MessagePrinter.printLevelInfo(game);
       char userInput = getUserInput(game);
 
       answeredCorrectly = game.hasAnsweredCorrectly(userInput);
@@ -24,9 +26,10 @@ public class Main {
         game.incrementLevel();
       }
 
-      game.printUserAnswerValidationMessage(answeredCorrectly);
+      MessagePrinter.printUserAnswerValidationMessage(game.getCurrentScore(), answeredCorrectly);
 
       if (game.hasReachedLastLevel()) {
+        MessagePrinter.printCongratulationMessage();
         break;
       }
     } while (answeredCorrectly);
