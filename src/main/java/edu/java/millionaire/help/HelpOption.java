@@ -12,8 +12,6 @@ import java.util.Random;
  */
 public abstract class HelpOption {
 
-  // TODO: check why static block don't work in subclasses
-
   protected boolean isUsed;
   protected Random randomizer;
 

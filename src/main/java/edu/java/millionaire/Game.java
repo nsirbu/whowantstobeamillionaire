@@ -6,6 +6,8 @@ import edu.java.millionaire.help.HelpOptionProvider;
 import edu.java.millionaire.io.MessagePrinter;
 import edu.java.millionaire.io.UserAnswerProvider;
 import edu.java.millionaire.question.Question;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.List;
  * @since 12.04.2021
  */
 public class Game {
+
+  private static final Logger logger = LogManager.getLogger(Game.class);
 
   public static final int MAX_LEVELS = 3;
   public final List<Character> helpOptionIndices;
@@ -60,20 +64,23 @@ public class Game {
   }
 
   private List<Character> initHelpOptionIndices() {
+    logger.info("Initializing help option indices...");
     List<Character> indices = new ArrayList<>();
     indices.add(HelpOptionIndex.AUDIENCE_HELP.getValue());
     indices.add(HelpOptionIndex.FRIEND_HELP.getValue());
     indices.add(HelpOptionIndex.FIFTY_FIFTY_HELP.getValue());
+    logger.info("Initializing help option indices done.");
     return indices;
   }
 
   char invokeHelpOption(char userInput) {
     if (helpOptionIndices.contains(userInput)) {
       HelpOption helpOption = HelpOptionProvider.getHelpOptionForIndex(userInput);
+      logger.info("Invoking HelpOption - {}...", helpOption.getClass().getSimpleName());
       if (!helpOption.isUsed()) {
         MessagePrinter.printHelpAnswers(currentQuestion.getText(), helpOption.getAnswers(getCurrentQuestion()));
       } else {
-        System.out.println(String.format("HelpOption[%s] has been already used!", helpOption.getClass().getSimpleName()));
+        logger.info(String.format("HelpOption[%s] has been already used!", helpOption.getClass().getSimpleName()));
       }
 
       userInput = UserAnswerProvider.getUserAnswer();

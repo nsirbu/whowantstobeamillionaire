@@ -1,8 +1,11 @@
 package edu.java.millionaire.help;
 
+import edu.java.millionaire.Game;
 import edu.java.millionaire.question.Answer;
 import edu.java.millionaire.question.AnswerHelp;
 import edu.java.millionaire.question.Question;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +17,8 @@ import java.util.List;
  * @since 30.04.2021
  */
 public class AudienceHelp extends HelpOption {
+
+  private static final Logger logger = LogManager.getLogger(AudienceHelp.class);
 
   private static AudienceHelp instance;
 
@@ -30,14 +35,17 @@ public class AudienceHelp extends HelpOption {
 
   @Override
   List<AnswerHelp> determineHelpAnswers(Question question) {
+    logger.info("Determining {} help options...", this.getClass().getSimpleName());
     List<Integer> probabilities = getFourRandomNumbers();
     Collections.sort(probabilities);
     List<AnswerHelp> helpAnswers = createHelpAnswers(question, probabilities);
     sortHelpAnswersBySequenceAsc(helpAnswers);
+    logger.info("Help options determined.");
     return helpAnswers;
   }
 
   private List<Integer> getFourRandomNumbers() {
+    logger.info("Generating four random numbers for {} help option...", this.getClass().getSimpleName());
     int probOne = randomizer.nextInt(100);
     int probTwo = randomizer.nextInt(100 - probOne);
     int probThree = randomizer.nextInt(100 - probOne - probTwo);

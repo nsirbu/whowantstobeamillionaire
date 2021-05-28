@@ -1,5 +1,8 @@
 package edu.java.millionaire.question;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +11,8 @@ import java.util.List;
  * @since 07.04.2021
  */
 public class Question {
+
+  private static final Logger logger = LogManager.getLogger(Question.class);
 
   private String text;
   private int level;
@@ -47,7 +52,9 @@ public class Question {
 
   public void setScore(int score) {
     if (score < 0) {
-      throw new IllegalArgumentException("Game score must be higher than 0 (zero).");
+      String err = "Game score must be higher than 0 (zero).";
+      logger.error(err);
+      throw new IllegalArgumentException(err);
     }
 
     this.score = score;
@@ -59,11 +66,15 @@ public class Question {
 
   public void setAnswers(Answer[] answers) {
     if (answers.length != 4) {
-      throw new IllegalArgumentException(String.format("Got [%s] answers. Expecting exactly 4 answers.", answers.length));
+      String err = String.format("Got [%s] answers. Expecting exactly 4 answers.", answers.length);
+      logger.error(err);
+      throw new IllegalArgumentException(err);
     }
 
     if (!hasOnlyOneCorrectAnswer(answers)) {
-      throw new IllegalArgumentException("The provided list of answers contains none or several correct answers. Expecting exactly one correct answer.");
+      String err = "The provided list of answers contains none or several correct answers. Expecting exactly one correct answer.";
+      logger.error(err);
+      throw new IllegalArgumentException(err);
     }
 
     this.answers = answers;
@@ -94,6 +105,7 @@ public class Question {
       }
     }
 
+    logger.warn("Could not find any correct answer for Question[{}].", text);
     return null;
   }
 

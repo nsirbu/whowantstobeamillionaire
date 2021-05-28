@@ -1,5 +1,8 @@
 package edu.java.millionaire.question;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Random;
 
 /**
@@ -7,6 +10,8 @@ import java.util.Random;
  * @since 12.04.2021
  */
 public class QuestionProvider {
+
+  private static final Logger logger = LogManager.getLogger(QuestionProvider.class);
 
   private static final int LEVEL_ONE_SCORE = 100;
   private static final int LEVEL_TWO_SCORE = 200;
@@ -26,6 +31,8 @@ public class QuestionProvider {
   }
 
   private static Question[] initializeQuestionsForLevelOne() {
+    logger.info("Initializing questions for level 1...");
+
     Answer q1a1 = new Answer("stat");
     Answer q1a2 = new Answer("casă", true);
     Answer q1a3 = new Answer("soare");
@@ -53,10 +60,13 @@ public class QuestionProvider {
                                LEVEL_ONE_SCORE,
                                new Answer[]{q3a1, q3a2, q3a3, q4a4});
 
+    logger.info("Questions for level 1 have been initialized.");
     return new Question[]{q1, q2, q3};
   }
 
   private static Question[] initializeQuestionsForLevelTwo() {
+    logger.info("Initializing questions for level 2...");
+
     Answer q1a1 = new Answer("BIOS");
     Answer q1a2 = new Answer("RAM");
     Answer q1a3 = new Answer("USB");
@@ -84,10 +94,13 @@ public class QuestionProvider {
                                LEVEL_TWO_SCORE,
                                new Answer[]{q3a1, q3a2, q3a3, q3a4});
 
+    logger.info("Questions for level 2 have been initialized.");
     return new Question[]{q1, q2, q3};
   }
 
   private static Question[] initializeQuestionsForLevelThree() {
+    logger.info("Initializing questions for level 3...");
+
     Answer q1a1 = new Answer("Abu Dhabi");
     Answer q1a2 = new Answer("Manama");
     Answer q1a3 = new Answer("Doha");
@@ -115,6 +128,7 @@ public class QuestionProvider {
                                LEVEL_THREE_SCORE,
                                new Answer[]{q3a1, q3a2, q3a3, q3a4});
 
+    logger.info("Questions for level 3 have been initialized.");
     return new Question[]{q1, q2, q3};
   }
 

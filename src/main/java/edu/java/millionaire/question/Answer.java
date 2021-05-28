@@ -1,5 +1,8 @@
 package edu.java.millionaire.question;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +12,8 @@ import java.util.List;
  * @since 07.04.2021
  */
 public class Answer {
+
+  private static final Logger logger = LogManager.getLogger(Answer.class);
 
   public static final List<Character> ANSWER_SEQUENCES = new ArrayList<>(Arrays.asList('a', 'b', 'c', 'd'));
 
@@ -58,7 +63,9 @@ public class Answer {
 
   public final void setSequence(char sequence) {
     if (!containsSequence(sequence)) {
-      throw new IllegalArgumentException(String.format("Got [%s]. Should be one of %s.", sequence, ANSWER_SEQUENCES));
+      String err = String.format("Got [%s]. Should be one of %s.", sequence, ANSWER_SEQUENCES);
+      logger.error(err);
+      throw new IllegalArgumentException(err);
     }
 
     this.sequence = sequence;
